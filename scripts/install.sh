@@ -17,27 +17,6 @@ echo "-----> Server IP: ${HOST_IP}"
 echo "-----> Current User: ${CURRENT_USER}"
 echo "-----> Latest Dokku Version: ${CURRENT_VERSION}"
 
-# Check if dokku exists and is root user
-if ! which dokku >/dev/null ; then
-    if [ $CURRENT_USER = "root" ] ; then
-        # Install Dokku
-        cat ~/.ssh/authorized_keys | dokku ssh-keys:add admin
-
-        # Verify dokku was installed correctly
-        if which dokku >/dev/null ; then
-            echo "-----> Dokku installed successfully"
-        else
-            echo "!!!!!! Something went wrong with the Dokku installation, please review any errors and try again."
-            exit 1
-        fi
-    else
-        echo '!!!!!! You must run this as root'
-        exit 1
-    fi
-else
-    echo '-----> You have Dokku installed already, skipping installation...'
-fi
-
 # Install database and extra plugins
 echo '-----> Installing plugins'
 sudo dokku plugin:install https://github.com/dokku/dokku-letsencrypt.git
