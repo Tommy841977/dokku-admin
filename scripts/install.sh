@@ -21,9 +21,6 @@ echo "-----> Latest Dokku Version: ${CURRENT_VERSION}"
 if ! which dokku >/dev/null ; then
     if [ $CURRENT_USER = "root" ] ; then
         # Install Dokku
-        echo '-----> Installing Dokku'
-        wget https://raw.githubusercontent.com/dokku/dokku/$CURRENT_VERSION/bootstrap.sh
-        sudo DOKKU_TAG=$CURRENT_VERSION bash bootstrap.sh
         cat ~/.ssh/authorized_keys | dokku ssh-keys:add admin
 
         # Verify dokku was installed correctly
